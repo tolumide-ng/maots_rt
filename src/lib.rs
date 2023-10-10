@@ -59,11 +59,8 @@ pub fn human(args: TokenStream, item: TokenStream) -> TokenStream {
     // let inner_fn =  body.clone().stmts.iter_mut().map(|s| s).collect::<Vec<_>>();
     let mut modified_body = body.clone();
 
-    let mut stmt = &mut modified_body.stmts[0];
+    let mut stmt = modified_body.stmts[0].clone();
 
-    // let body_in_localset = quote! {
-    //     <#system>::new().block_on(async { #stmt })
-    // };
 
     if let syn::Stmt::Item(item) = &mut stmt {
         // if let syn::ItemFn(data) = item {}
@@ -80,6 +77,8 @@ pub fn human(args: TokenStream, item: TokenStream) -> TokenStream {
 
         }
     }
+
+    modified_body.stmts[0] = stmt;
 
 
     // let new_stmt = quote! {
