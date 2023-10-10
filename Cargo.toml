@@ -1,0 +1,36 @@
+[package]
+name = "maots_rt"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+proc-macro = true
+
+[[test]]
+name = "tests"
+path = "tests/trybuild.rs"
+
+[dependencies]
+quote = "1"
+syn = { version = "2", features = ["full"] }
+proc-macro2 = "1.0.60"
+actix-rt = "2"
+
+[dependencies.sqlx]
+version = "0.7.2"
+default-features = false
+features = [
+    "runtime-tokio",
+    "json",
+    "chrono",
+    "uuid",
+    "macros",
+    "postgres",
+    "migrate"
+]
+
+[dev-dependencies]
+futures-util = { version = "0.3.28", default-features = false }
+rustversion = "1"
+trybuild = "1"
